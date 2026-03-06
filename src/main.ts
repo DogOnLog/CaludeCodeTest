@@ -9,8 +9,9 @@ import { enqueue, clearQueue } from './game/input'
 import { render } from './game/renderer'
 import { triggerShake, playDeathAnimation, showMilestone } from './game/effects'
 import { playEat, playDeath, playMilestone, setAudioEnabled, isAudioEnabled } from './game/audio'
-import { getOverlayEls, showStart, showGameOver, hideOverlay } from './ui/overlay'
+import { getOverlayEls, showStart, showGameOver, hideOverlay, renderLeaderboard } from './ui/overlay'
 import { getHudEls, updateScore, updateHighScore, setAutopilot, setRecordGlow } from './ui/hud'
+import { submitScore, fetchTop } from './lib/leaderboard'
 
 // ── DOM ───────────────────────────────────────────────────────────────────────
 const canvas      = document.getElementById('canvas') as HTMLCanvasElement
@@ -134,6 +135,44 @@ dpadMap.forEach(([id, dir]) => {
   document.getElementById(id)?.addEventListener('click', () => {
     if (state.running && !state.paused && !state.autopilot) enqueue(dir, state.dir)
   })
+})
+
+// ── Leaderboard ────────────────────────────────────────────────────────────────
+const lbBtn = document.getElementById('lb-btn') as HTMLButtonElement | null
+
+overlay.saveBtn.addEventListener('click', async () => {
+  const name = overlay.playerName.value.trim()
+  if (!name) { overlay.playerName.focus(); return }
+  overlay.saveBtn.disabled = true
+  overlay.saveBtn.textContent = '...'
+  try {
+    await submitScore(name, state.score)
+    const entries = await fetchTop(10)
+    renderLeaderboard(overlay, entries)
+  } catch {
+    overlay.saveBtn.disabled = false
+    overlay.saveBtn.textContent = 'SALVA PUNTEGGIO'
+  }
+})
+
+overlay.playerName.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') overlay.saveBtn.click()
+})
+
+lbBtn?.addEventListener('click', async () => {
+  lbBtn.disabled = true
+  lbBtn.textContent = '...'
+  try {
+    const entries = await fetchTop(10)
+    renderLeaderboard(overlay, entries)
+    overlay.icon.textContent  = '🏆'
+    overlay.title.textContent = 'Classifica'
+    overlay.msg.textContent   = ''
+    overlay.overlay.style.display = 'flex'
+  } finally {
+    lbBtn.disabled = false
+    lbBtn.textContent = '🏆 Visualizza Top 10'
+  }
 })
 
 // ── UI toggles ─────────────────────────────────────────────────────────────────

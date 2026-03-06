@@ -50,11 +50,24 @@
       </header>
 
       <div class="game-wrapper" id="game-wrapper">
-        <canvas id="canvas" width="400" height="400"></canvas>
+        <canvas id="canvas" width="500" height="500"></canvas>
         <div id="overlay">
           <div id="overlay-icon">🐍</div>
           <h2 id="overlay-title">Snake</h2>
           <p id="overlay-msg">Guida il serpente verso il cibo.</p>
+
+          <!-- Leaderboard submit (game over with score > 0) -->
+          <div id="name-section" class="name-section hidden">
+            <input id="player-name" class="name-input" type="text" maxlength="20" placeholder="Il tuo nome..." autocomplete="off" spellcheck="false">
+            <button id="save-btn" class="save-btn">SALVA PUNTEGGIO</button>
+          </div>
+
+          <!-- Top 10 (shown after submit) -->
+          <div id="lb-section" class="lb-section hidden">
+            <div class="lb-title">🏆 TOP 10</div>
+            <ol id="lb-list" class="lb-list"></ol>
+          </div>
+
           <button id="btn">INIZIA</button>
         </div>
         <div id="ai-badge" class="ai-badge">AI</div>
@@ -96,6 +109,11 @@
             <span class="control-desc">Pausa</span>
           </div>
         </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">CLASSIFICA</div>
+        <button id="lb-btn" class="lb-open-btn">🏆 Visualizza Top 10</button>
       </div>
 
       <div class="sidebar-section">

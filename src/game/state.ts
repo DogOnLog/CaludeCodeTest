@@ -1,4 +1,4 @@
-export const GRID = 20
+export const GRID = 25
 export const COLS = 20
 export const ROWS = 20
 export const TICK_MS = 120
