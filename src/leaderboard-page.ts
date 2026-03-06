@@ -4,9 +4,9 @@ import './styles/components.css'
 import './styles/portfolio.css'
 import './styles/leaderboard.css'
 
-import { fetchTop } from './lib/leaderboard'
+import { fetchTop, GameTable } from './lib/leaderboard'
 
-async function renderTable(listId: string, table: 'leaderboard' | 'leaderboard_breakout'): Promise<void> {
+async function renderTable(listId: string, table: GameTable): Promise<void> {
   const el = document.getElementById(listId)!
   el.innerHTML = '<li class="lb-page-loading">Caricamento...</li>'
   try {
