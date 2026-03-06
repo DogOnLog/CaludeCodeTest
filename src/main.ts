@@ -1,4 +1,5 @@
 import './styles/main.css'
+import './styles/portfolio.css'
 import { createInitialState, GameState } from './game/state'
 import { startLoop, stopLoop } from './game/loop'
 import { enqueue, clearQueue } from './game/input'

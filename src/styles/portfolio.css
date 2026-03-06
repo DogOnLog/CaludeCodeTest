@@ -1,0 +1,271 @@
+/* ── Portfolio-specific styles ── */
+
+.portfolio-body {
+  justify-content: flex-start;
+  padding: 0;
+  gap: 0;
+}
+
+.portfolio-container {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 32px 24px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+/* ── Top header ── */
+.portfolio-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
+  gap: 0;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.portfolio-logo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.portfolio-logo-icon {
+  font-size: 2.4rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 12px var(--glow));
+}
+
+.portfolio-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--glow);
+  margin-bottom: 2px;
+}
+
+.portfolio-subtitle {
+  font-size: .75rem;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.github-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: color .2s, border-color .2s;
+}
+
+.github-link:hover {
+  color: var(--text);
+  border-color: var(--accent);
+}
+
+/* ── Section title ── */
+.section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  margin-bottom: 16px;
+}
+
+/* ── Games grid ── */
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+/* ── Game card ── */
+.game-card {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  transition: border-color .2s, box-shadow .2s, transform .15s;
+  cursor: pointer;
+}
+
+.game-card:not(.game-card--locked):hover {
+  border-color: var(--accent);
+  box-shadow: 0 0 24px var(--glow);
+  transform: translateY(-2px);
+}
+
+.game-card--locked {
+  cursor: default;
+  opacity: .6;
+}
+
+.game-card-inner {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+}
+
+.game-icon {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.game-name {
+  font-family: 'Orbitron', sans-serif;
+  font-size: .95rem;
+  font-weight: 900;
+  letter-spacing: 3px;
+  color: var(--accent);
+  margin-bottom: 4px;
+}
+
+.game-desc {
+  font-size: .8rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.game-meta {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.game-tag {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: var(--accent-dim);
+  color: var(--accent);
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.game-tag--dim {
+  background: var(--border);
+  color: var(--muted);
+}
+
+.game-record {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.record-label {
+  font-size: .65rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.record-value {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.play-badge {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: .65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity .2s;
+}
+
+.game-card:hover .play-badge { opacity: 1; }
+
+.coming-soon {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: .6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--muted);
+}
+
+/* ── Top nav (inside game pages) ── */
+.topnav {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  background: var(--surface);
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: .8rem;
+  font-weight: 600;
+  transition: color .2s;
+}
+
+.back-link:hover { color: var(--accent); }
+
+.back-arrow { font-size: 1rem; }
+
+.topnav-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: .8rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--accent);
+}
+
+.topnav-spacer { width: 80px; }
+
+/* ── Footer ── */
+.portfolio-footer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: .75rem;
+  color: var(--muted);
+  padding-top: 24px;
+  border-top: 1px solid var(--border);
+}
+
+.portfolio-footer a {
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s;
+}
+
+.portfolio-footer a:hover { color: var(--accent); }
+.footer-sep { color: var(--border); }

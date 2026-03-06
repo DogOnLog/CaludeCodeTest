@@ -3,63 +3,90 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Snake</title>
+  <title>Retro Games — Portfolio</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="/src/portfolio.ts"></script>
 </head>
-<body>
+<body class="portfolio-body">
 
-  <header>
-    <div class="logo-icon">🐍</div>
-    <h1>SNAKE</h1>
-  </header>
+  <div class="portfolio-container">
 
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-label">Punteggio</div>
-      <div class="stat-value" id="score">0</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Record</div>
-      <div class="stat-value" id="high-score">0</div>
-    </div>
+    <header class="portfolio-header">
+      <div class="portfolio-logo">
+        <span class="portfolio-logo-icon">👾</span>
+        <div>
+          <h1 class="portfolio-title">RETRO GAMES</h1>
+          <p class="portfolio-subtitle">Giochi classici, codice moderno</p>
+        </div>
+      </div>
+      <a href="https://github.com/DogOnLog" target="_blank" class="github-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        GitHub
+      </a>
+    </header>
+
+    <section class="games-section">
+      <h2 class="section-title">GIOCHI</h2>
+      <div class="games-grid" id="games-grid">
+
+        <a href="./games/snake.html" class="game-card">
+          <div class="game-card-inner">
+            <div class="game-icon">🐍</div>
+            <div class="game-info">
+              <h3 class="game-name">SNAKE</h3>
+              <p class="game-desc">Il classico serpente arcade. Mangia, cresci, sopravvivi.</p>
+              <div class="game-meta">
+                <span class="game-tag">Arcade</span>
+                <span class="game-tag">Autopilota AI</span>
+              </div>
+            </div>
+            <div class="game-record">
+              <span class="record-label">Record</span>
+              <span class="record-value" id="hs-snake">—</span>
+            </div>
+            <div class="play-badge">GIOCA →</div>
+          </div>
+        </a>
+
+        <div class="game-card game-card--locked">
+          <div class="game-card-inner">
+            <div class="game-icon" style="opacity:.3">🧱</div>
+            <div class="game-info">
+              <h3 class="game-name" style="opacity:.4">TETRIS</h3>
+              <p class="game-desc" style="opacity:.3">Prossimamente — blocchi e strategie.</p>
+              <div class="game-meta">
+                <span class="game-tag game-tag--dim">Puzzle</span>
+              </div>
+            </div>
+            <div class="coming-soon">PROSSIMAMENTE</div>
+          </div>
+        </div>
+
+        <div class="game-card game-card--locked">
+          <div class="game-card-inner">
+            <div class="game-icon" style="opacity:.3">🏓</div>
+            <div class="game-info">
+              <h3 class="game-name" style="opacity:.4">BREAKOUT</h3>
+              <p class="game-desc" style="opacity:.3">Prossimamente — rompi tutti i mattoni.</p>
+              <div class="game-meta">
+                <span class="game-tag game-tag--dim">Arcade</span>
+              </div>
+            </div>
+            <div class="coming-soon">PROSSIMAMENTE</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="portfolio-footer">
+      <span>Fatto con TypeScript + Vite</span>
+      <span class="footer-sep">·</span>
+      <a href="https://github.com/DogOnLog/CaludeCodeTest" target="_blank">Codice sorgente</a>
+    </footer>
+
   </div>
 
-  <div class="game-wrapper">
-    <canvas id="canvas" width="400" height="400"></canvas>
-    <div id="overlay">
-      <div id="overlay-icon">🐍</div>
-      <h2 id="overlay-title">Snake</h2>
-      <p id="overlay-msg">Guida il serpente verso il cibo.</p>
-      <button id="btn">INIZIA</button>
-    </div>
-  </div>
-
-  <div class="controls-bar">
-    <div class="hints" style="display:flex;align-items:center;gap:6px;">
-      <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span>
-      <span class="controls-sep">·</span>
-      <span class="kbd">↑</span><span class="kbd">←</span><span class="kbd">↓</span><span class="kbd">→</span>
-      <span class="controls-sep">·</span>
-      <span class="kbd">P</span>&nbsp;<span style="font-size:.75rem;color:var(--muted)">pausa</span>
-    </div>
-    <button id="auto-btn">
-      <span class="toggle-dot">🤖</span>
-      Autopilota
-    </button>
-  </div>
-
-  <div class="dpad">
-    <div class="dpad-row">
-      <div class="dpad-btn" id="d-up">▲</div>
-    </div>
-    <div class="dpad-row">
-      <div class="dpad-btn" id="d-left">◀</div>
-      <div class="dpad-btn" id="d-down">▼</div>
-      <div class="dpad-btn" id="d-right">▶</div>
-    </div>
-  </div>
-
-  <script type="module" src="/src/main.ts"></script>
 </body>
 </html>

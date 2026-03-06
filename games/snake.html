@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Snake — Retro Games</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <nav class="topnav">
+    <a href="../" class="back-link">
+      <span class="back-arrow">←</span>
+      <span>Portfolio</span>
+    </a>
+    <span class="topnav-title">SNAKE</span>
+    <span class="topnav-spacer"></span>
+  </nav>
+
+  <header>
+    <div class="logo-icon">🐍</div>
+    <h1>SNAKE</h1>
+  </header>
+
+  <div class="stats">
+    <div class="stat-card">
+      <div class="stat-label">Punteggio</div>
+      <div class="stat-value" id="score">0</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-label">Record</div>
+      <div class="stat-value" id="high-score">0</div>
+    </div>
+  </div>
+
+  <div class="game-wrapper">
+    <canvas id="canvas" width="400" height="400"></canvas>
+    <div id="overlay">
+      <div id="overlay-icon">🐍</div>
+      <h2 id="overlay-title">Snake</h2>
+      <p id="overlay-msg">Guida il serpente verso il cibo.</p>
+      <button id="btn">INIZIA</button>
+    </div>
+  </div>
+
+  <div class="controls-bar">
+    <div class="hints" style="display:flex;align-items:center;gap:6px;">
+      <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span>
+      <span class="controls-sep">·</span>
+      <span class="kbd">↑</span><span class="kbd">←</span><span class="kbd">↓</span><span class="kbd">→</span>
+      <span class="controls-sep">·</span>
+      <span class="kbd">P</span>&nbsp;<span style="font-size:.75rem;color:var(--muted)">pausa</span>
+    </div>
+    <button id="auto-btn">
+      <span class="toggle-dot">🤖</span>
+      Autopilota
+    </button>
+  </div>
+
+  <div class="dpad">
+    <div class="dpad-row">
+      <div class="dpad-btn" id="d-up">▲</div>
+    </div>
+    <div class="dpad-row">
+      <div class="dpad-btn" id="d-left">◀</div>
+      <div class="dpad-btn" id="d-down">▼</div>
+      <div class="dpad-btn" id="d-right">▶</div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
