@@ -12,7 +12,9 @@ const COLS = canvas.width / GRID;
 const ROWS = canvas.height / GRID;
 const SPEED = 120;
 
-let snake, dir, nextDir, food, score, highScore, gameLoop, running, paused;
+let snake, dir, nextDir, food, score, highScore, gameLoop, running, paused, autopilot;
+
+const autoBtn = document.getElementById('auto-btn');
 
 highScore = parseInt(localStorage.getItem('snakeHS') || '0');
 highScoreEl.textContent = highScore;
@@ -31,6 +33,55 @@ function init() {
   placeFood();
 }
 
+// BFS pathfinding per l'autopilota
+function bfs(start, target, snakeBody) {
+  const blocked = new Set(snakeBody.map(s => `${s.x},${s.y}`));
+  const queue = [{ pos: start, path: [] }];
+  const visited = new Set([`${start.x},${start.y}`]);
+  const moves = [{x:0,y:-1},{x:0,y:1},{x:-1,y:0},{x:1,y:0}];
+
+  while (queue.length) {
+    const { pos, path } = queue.shift();
+    for (const m of moves) {
+      const nx = pos.x + m.x, ny = pos.y + m.y;
+      const key = `${nx},${ny}`;
+      if (nx < 0 || nx >= COLS || ny < 0 || ny >= ROWS) continue;
+      if (blocked.has(key) || visited.has(key)) continue;
+      const newPath = [...path, m];
+      if (nx === target.x && ny === target.y) return newPath;
+      visited.add(key);
+      queue.push({ pos: {x: nx, y: ny}, path: newPath });
+    }
+  }
+  return null;
+}
+
+function autopilotMove() {
+  const head = snake[0];
+  let path = bfs(head, food, snake);
+
+  if (!path) {
+    // Nessun percorso verso il cibo: sopravvivi muovendoti in una direzione libera
+    const moves = [{x:0,y:-1},{x:0,y:1},{x:-1,y:0},{x:1,y:0}];
+    const blocked = new Set(snake.map(s => `${s.x},${s.y}`));
+    for (const m of moves) {
+      const nx = head.x + m.x, ny = head.y + m.y;
+      if (nx >= 0 && nx < COLS && ny >= 0 && ny < ROWS && !blocked.has(`${nx},${ny}`)) {
+        path = [m];
+        break;
+      }
+    }
+  }
+
+  if (path && path.length > 0) {
+    const m = path[0];
+    // Non invertire la direzione
+    if (!(m.x === -dir.x && m.y === -dir.y)) {
+      nextDir = m;
+    }
+  }
+}
+
 function placeFood() {
   let pos;
   do {
@@ -41,6 +92,7 @@ function placeFood() {
 
 function update() {
   if (paused) return;
+  if (autopilot) autopilotMove();
   dir = { ...nextDir };
   const head = { x: snake[0].x + dir.x, y: snake[0].y + dir.y };
 
@@ -124,10 +176,20 @@ function startGame() {
   init();
   if (gameLoop) clearInterval(gameLoop);
   running = true;
+  autopilot = false;
+  autoBtn.textContent = 'Autopilota: OFF';
+  autoBtn.style.background = '#4ecca3';
   gameLoop = setInterval(() => { update(); draw(); }, SPEED);
 }
 
 btn.addEventListener('click', startGame);
+
+autoBtn.addEventListener('click', () => {
+  if (!running) return;
+  autopilot = !autopilot;
+  autoBtn.textContent = `Autopilota: ${autopilot ? 'ON' : 'OFF'}`;
+  autoBtn.style.background = autopilot ? '#ff6b6b' : '#4ecca3';
+});
 
 document.addEventListener('keydown', e => {
   switch (e.key) {
