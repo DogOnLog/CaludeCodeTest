@@ -106,9 +106,11 @@ function update() {
   if (head.x === food.x && head.y === food.y) {
     score++;
     scoreEl.textContent = score;
+    popScore(scoreEl);
     if (score > highScore) {
       highScore = score;
       highScoreEl.textContent = highScore;
+      popScore(highScoreEl);
       localStorage.setItem('snakeHS', highScore);
     }
     placeFood();
@@ -165,20 +167,21 @@ function draw() {
 function gameOver() {
   clearInterval(gameLoop);
   running = false;
+  document.getElementById('overlay-icon').textContent = '💀';
   overlayTitle.textContent = 'Game Over';
-  overlayMsg.textContent = `Punteggio: ${score}`;
-  btn.textContent = 'Riprova';
+  overlayMsg.textContent = `Hai totalizzato ${score} punt${score===1?'o':'i'}.\n${score >= highScore && score > 0 ? '🏆 Nuovo record!' : 'Riprova a battere il record!'}`;
+  btn.textContent = 'RIPROVA';
   overlay.style.display = 'flex';
 }
 
 function startGame() {
   overlay.style.display = 'none';
+  document.getElementById('overlay-icon').textContent = '🐍';
   init();
   if (gameLoop) clearInterval(gameLoop);
   running = true;
   autopilot = false;
-  autoBtn.textContent = 'Autopilota: OFF';
-  autoBtn.style.background = '#4ecca3';
+  autoBtn.classList.remove('active');
   gameLoop = setInterval(() => { update(); draw(); }, SPEED);
 }
 
@@ -187,9 +190,22 @@ btn.addEventListener('click', startGame);
 autoBtn.addEventListener('click', () => {
   if (!running) return;
   autopilot = !autopilot;
-  autoBtn.textContent = `Autopilota: ${autopilot ? 'ON' : 'OFF'}`;
-  autoBtn.style.background = autopilot ? '#ff6b6b' : '#4ecca3';
+  autoBtn.classList.toggle('active', autopilot);
 });
+
+// Touch d-pad
+document.getElementById('d-up')   ?.addEventListener('click', () => { if(dir.y!==1)  nextDir={x:0,y:-1}; });
+document.getElementById('d-down') ?.addEventListener('click', () => { if(dir.y!==-1) nextDir={x:0,y:1};  });
+document.getElementById('d-left') ?.addEventListener('click', () => { if(dir.x!==1)  nextDir={x:-1,y:0}; });
+document.getElementById('d-right')?.addEventListener('click', () => { if(dir.x!==-1) nextDir={x:1,y:0};  });
+
+// Score pop animation
+function popScore(el) {
+  el.classList.remove('pop');
+  void el.offsetWidth;
+  el.classList.add('pop');
+  setTimeout(() => el.classList.remove('pop'), 150);
+}
 
 document.addEventListener('keydown', e => {
   switch (e.key) {
