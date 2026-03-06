@@ -1,48 +1,20 @@
-/* ── Design Tokens ── */
-:root {
-  --bg:          #0d0d14;
-  --surface:     #13131f;
-  --border:      #1e1e30;
-  --accent:      #39d98a;
-  --accent-auto: #22d3ee;
-  --accent-dim:  #1a6644;
-  --danger:      #ff4d4d;
-  --amber:       #f59e0b;
-  --text:        #e2e2f0;
-  --muted:       #4a4a6a;
-  --glow:        rgba(57, 217, 138, 0.25);
-  --glow-auto:   rgba(34, 211, 238, 0.25);
-}
-
-/* ── Reset ── */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-/* ── Base ── */
-body {
-  background: var(--bg);
-  min-height: 100vh;
+/* ── Game page layout ── */
+.game-page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: 'Inter', sans-serif;
-  color: var(--text);
   gap: 20px;
   padding: 24px 16px;
 }
 
-/* ── Header ── */
-header {
+/* ── Game header ── */
+.game-header {
   display: flex;
   align-items: center;
   gap: 14px;
 }
 
-.logo-icon {
+.game-logo-icon {
   width: 36px;
   height: 36px;
   background: var(--accent);
@@ -53,7 +25,7 @@ header {
   font-size: 20px;
 }
 
-h1 {
+.game-title {
   font-family: 'Orbitron', sans-serif;
   font-size: 1.6rem;
   font-weight: 900;
@@ -62,43 +34,10 @@ h1 {
   text-shadow: 0 0 20px var(--glow);
 }
 
-/* ── Stats ── */
-.stats {
-  display: flex;
-  gap: 12px;
-}
+/* ── Stats row ── */
+.stats { display: flex; gap: 12px; }
 
-.stat-card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 10px 24px;
-  text-align: center;
-  min-width: 110px;
-}
-
-.stat-label {
-  font-size: .65rem;
-  font-weight: 600;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 4px;
-}
-
-.stat-value {
-  font-family: 'Orbitron', sans-serif;
-  font-size: 1.4rem;
-  font-weight: 700;
-  color: var(--accent);
-  transition: transform .1s;
-}
-
-.stat-value.pop {
-  transform: scale(1.35);
-}
-
-/* ── Game area ── */
+/* ── Canvas wrapper ── */
 .game-wrapper {
   position: relative;
   border-radius: 16px;
@@ -106,11 +45,9 @@ h1 {
   box-shadow: 0 0 0 1px var(--border), 0 0 40px var(--glow);
 }
 
-canvas {
-  display: block;
-}
+canvas { display: block; }
 
-/* ── Overlay ── */
+/* ── Game overlay ── */
 #overlay {
   position: absolute;
   inset: 0;
@@ -124,10 +61,7 @@ canvas {
   padding: 32px;
 }
 
-#overlay-icon {
-  font-size: 3rem;
-  line-height: 1;
-}
+#overlay-icon  { font-size: 3rem; line-height: 1; }
 
 #overlay-title {
   font-family: 'Orbitron', sans-serif;
@@ -172,23 +106,10 @@ canvas {
   justify-content: center;
 }
 
-.kbd {
-  display: inline-flex;
+.hints {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  padding: 3px 8px;
-  font-size: .72rem;
-  font-weight: 600;
-  color: var(--muted);
-  min-width: 28px;
-}
-
-.controls-sep {
-  color: var(--border);
-  font-size: .8rem;
+  gap: 6px;
 }
 
 /* ── Autopilot toggle ── */
@@ -229,37 +150,3 @@ canvas {
 }
 
 #auto-btn.active .toggle-dot { background: var(--accent-auto); }
-
-/* ── D-pad (mobile) ── */
-.dpad {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.dpad-row { display: flex; gap: 4px; }
-
-.dpad-btn {
-  width: 52px;
-  height: 52px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  color: var(--text);
-  font-size: 1.2rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background .1s;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
-}
-
-.dpad-btn:active { background: var(--accent-dim); }
-
-@media (max-width: 520px) {
-  .dpad { display: flex; }
-  .hints { display: none; }
-}

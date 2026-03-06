@@ -1,4 +1,6 @@
-import './styles/main.css'
+import './styles/tokens.css'
+import './styles/base.css'
+import './styles/components.css'
 import './styles/portfolio.css'
 
 // Load personal best scores from localStorage

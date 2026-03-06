@@ -1,9 +1,6 @@
-/* ── Portfolio-specific styles ── */
-
+/* ── Portfolio page layout ── */
 .portfolio-body {
   justify-content: flex-start;
-  padding: 0;
-  gap: 0;
 }
 
 .portfolio-container {
@@ -16,13 +13,11 @@
   gap: 40px;
 }
 
-/* ── Top header ── */
+/* ── Header ── */
 .portfolio-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-direction: row;
-  gap: 0;
   padding-bottom: 24px;
   border-bottom: 1px solid var(--border);
 }
@@ -69,12 +64,9 @@
   transition: color .2s, border-color .2s;
 }
 
-.github-link:hover {
-  color: var(--text);
-  border-color: var(--accent);
-}
+.github-link:hover { color: var(--text); border-color: var(--accent); }
 
-/* ── Section title ── */
+/* ── Section ── */
 .section-title {
   font-family: 'Orbitron', sans-serif;
   font-size: .75rem;
@@ -110,10 +102,7 @@
   transform: translateY(-2px);
 }
 
-.game-card--locked {
-  cursor: default;
-  opacity: .6;
-}
+.game-card--locked { cursor: default; opacity: .6; }
 
 .game-card-inner {
   padding: 24px;
@@ -123,10 +112,7 @@
   position: relative;
 }
 
-.game-icon {
-  font-size: 2.2rem;
-  line-height: 1;
-}
+.game-icon    { font-size: 2.2rem; line-height: 1; }
 
 .game-name {
   font-family: 'Orbitron', sans-serif;
@@ -137,18 +123,9 @@
   margin-bottom: 4px;
 }
 
-.game-desc {
-  font-size: .8rem;
-  color: var(--muted);
-  line-height: 1.5;
-}
+.game-desc  { font-size: .8rem; color: var(--muted); line-height: 1.5; }
 
-.game-meta {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-top: 4px;
-}
+.game-meta  { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
 
 .game-tag {
   font-size: .65rem;
@@ -161,10 +138,7 @@
   border-radius: 4px;
 }
 
-.game-tag--dim {
-  background: var(--border);
-  color: var(--muted);
-}
+.game-tag--dim { background: var(--border); color: var(--muted); }
 
 .game-record {
   display: flex;
@@ -214,42 +188,6 @@
   color: var(--muted);
 }
 
-/* ── Top nav (inside game pages) ── */
-.topnav {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--border);
-  background: var(--surface);
-}
-
-.back-link {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--muted);
-  text-decoration: none;
-  font-size: .8rem;
-  font-weight: 600;
-  transition: color .2s;
-}
-
-.back-link:hover { color: var(--accent); }
-
-.back-arrow { font-size: 1rem; }
-
-.topnav-title {
-  font-family: 'Orbitron', sans-serif;
-  font-size: .8rem;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: var(--accent);
-}
-
-.topnav-spacer { width: 80px; }
-
 /* ── Footer ── */
 .portfolio-footer {
   display: flex;
@@ -261,11 +199,6 @@
   border-top: 1px solid var(--border);
 }
 
-.portfolio-footer a {
-  color: var(--muted);
-  text-decoration: none;
-  transition: color .2s;
-}
-
+.portfolio-footer a { color: var(--muted); text-decoration: none; transition: color .2s; }
 .portfolio-footer a:hover { color: var(--accent); }
 .footer-sep { color: var(--border); }
