@@ -27,10 +27,6 @@ export function getOverlayEls(): OverlayEls {
 }
 
 export function showStart(els: OverlayEls): void {
-  els.icon.textContent  = '🐍'
-  els.title.textContent = 'Snake'
-  els.msg.textContent   = 'Guida il serpente verso il cibo.\nEvita i muri e te stesso.'
-  els.btn.textContent   = 'INIZIA'
   els.nameSection.classList.add('hidden')
   els.lbSection.classList.add('hidden')
   els.overlay.style.display = 'flex'
