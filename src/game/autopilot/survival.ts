@@ -8,6 +8,10 @@ const MOVES: Vec2[] = [
   { x:  1, y: 0 },
 ]
 
+// Last computed path exposed for path-preview rendering
+let _lastPath: Vec2[] = []
+export function getAutopilotPath(): Vec2[] { return _lastPath }
+
 /**
  * Simulate eating the food at (head+move), then verify the tail is still
  * reachable from the new head. This prevents the snake from trapping itself.
@@ -29,15 +33,22 @@ export function autopilotMove(snake: Vec2[], food: Vec2, currentDir: Vec2): Vec2
   const pathToFood = bfs(head, food, blocked)
   if (pathToFood && pathToFood.length > 0) {
     const move = pathToFood[0]
-    if (isSafeToEat(snake, move)) return move
+    if (isSafeToEat(snake, move)) {
+      _lastPath = pathToFood
+      return move
+    }
   }
 
   // 2. Chase tail to survive when no safe path to food
   const tail = snake[snake.length - 1]
   const pathToTail = bfs(head, tail, blocked)
-  if (pathToTail && pathToTail.length > 0) return pathToTail[0]
+  if (pathToTail && pathToTail.length > 0) {
+    _lastPath = pathToTail
+    return pathToTail[0]
+  }
 
   // 3. Last resort: any free adjacent cell
+  _lastPath = []
   for (const m of MOVES) {
     if (m.x === -currentDir.x && m.y === -currentDir.y) continue
     const nx = head.x + m.x

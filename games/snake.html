@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="game-page">
 
   <nav class="topnav">
     <a href="../" class="back-link">
@@ -18,55 +18,105 @@
     <span class="topnav-spacer"></span>
   </nav>
 
-  <header>
-    <div class="logo-icon">🐍</div>
-    <h1>SNAKE</h1>
-  </header>
+  <div class="game-layout">
 
-  <div class="stats">
-    <div class="stat-card">
-      <div class="stat-label">Punteggio</div>
-      <div class="stat-value" id="score">0</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Record</div>
-      <div class="stat-value" id="high-score">0</div>
-    </div>
-  </div>
+    <!-- Left sidebar: stats -->
+    <aside class="sidebar sidebar--left">
+      <div class="sidebar-section">
+        <div class="sidebar-title">STATS</div>
+        <div class="stats vertical">
+          <div class="stat-card">
+            <div class="stat-label">Punteggio</div>
+            <div class="stat-value" id="score">0</div>
+          </div>
+          <div class="stat-card" id="high-score-card">
+            <div class="stat-label">Record</div>
+            <div class="stat-value" id="high-score">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">INFO</div>
+        <p class="sidebar-tip">Mangia il cibo rosso per crescere. Evita muri e te stesso.</p>
+        <p class="sidebar-tip" style="margin-top:8px;">L'autopilota usa BFS con simulazione di sicurezza per non restare intrappolato.</p>
+      </div>
+    </aside>
 
-  <div class="game-wrapper">
-    <canvas id="canvas" width="400" height="400"></canvas>
-    <div id="overlay">
-      <div id="overlay-icon">🐍</div>
-      <h2 id="overlay-title">Snake</h2>
-      <p id="overlay-msg">Guida il serpente verso il cibo.</p>
-      <button id="btn">INIZIA</button>
-    </div>
-  </div>
+    <!-- Center: canvas -->
+    <main class="game-main">
+      <header class="game-header">
+        <div class="game-logo-icon">🐍</div>
+        <h1 class="game-title">SNAKE</h1>
+      </header>
 
-  <div class="controls-bar">
-    <div class="hints">
-      <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span>
-      <span class="controls-sep">·</span>
-      <span class="kbd">↑</span><span class="kbd">←</span><span class="kbd">↓</span><span class="kbd">→</span>
-      <span class="controls-sep">·</span>
-      <span class="kbd">P</span>&nbsp;<span class="hint-label">pausa</span>
-    </div>
-    <button id="auto-btn">
-      <span class="toggle-dot">🤖</span>
-      Autopilota
-    </button>
-  </div>
+      <div class="game-wrapper" id="game-wrapper">
+        <canvas id="canvas" width="400" height="400"></canvas>
+        <div id="overlay">
+          <div id="overlay-icon">🐍</div>
+          <h2 id="overlay-title">Snake</h2>
+          <p id="overlay-msg">Guida il serpente verso il cibo.</p>
+          <button id="btn">INIZIA</button>
+        </div>
+        <div id="ai-badge" class="ai-badge">AI</div>
+        <div id="milestone" class="milestone"></div>
+      </div>
 
-  <div class="dpad">
-    <div class="dpad-row">
-      <div class="dpad-btn" id="d-up">▲</div>
-    </div>
-    <div class="dpad-row">
-      <div class="dpad-btn" id="d-left">◀</div>
-      <div class="dpad-btn" id="d-down">▼</div>
-      <div class="dpad-btn" id="d-right">▶</div>
-    </div>
+      <!-- D-pad: mobile only -->
+      <div class="dpad">
+        <div class="dpad-row">
+          <div class="dpad-btn" id="d-up">▲</div>
+        </div>
+        <div class="dpad-row">
+          <div class="dpad-btn" id="d-left">◀</div>
+          <div class="dpad-btn" id="d-down">▼</div>
+          <div class="dpad-btn" id="d-right">▶</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right sidebar: controls + settings -->
+    <aside class="sidebar sidebar--right">
+      <div class="sidebar-section">
+        <div class="sidebar-title">CONTROLLI</div>
+        <div class="controls-list">
+          <div class="control-row">
+            <div class="control-keys">
+              <span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span>
+            </div>
+            <span class="control-desc">Muovi</span>
+          </div>
+          <div class="control-row">
+            <div class="control-keys">
+              <span class="kbd">↑</span><span class="kbd">←</span><span class="kbd">↓</span><span class="kbd">→</span>
+            </div>
+            <span class="control-desc">Muovi</span>
+          </div>
+          <div class="control-row">
+            <span class="kbd">P</span>
+            <span class="control-desc">Pausa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">OPZIONI</div>
+        <div class="option-row">
+          <span class="option-label">Autopilota</span>
+          <button id="auto-btn" class="toggle-btn" title="Attiva AI">
+            <span class="toggle-dot">🤖</span>
+          </button>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Audio</span>
+          <button id="audio-btn" class="toggle-btn" title="Attiva audio"></button>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Effetto CRT</span>
+          <button id="crt-btn" class="toggle-btn" title="Attiva CRT"></button>
+        </div>
+      </div>
+    </aside>
+
   </div>
 
   <script type="module" src="/src/main.ts"></script>

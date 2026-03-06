@@ -1,4 +1,5 @@
 import { GameState, GRID, COLS, ROWS } from './state'
+import { getAutopilotPath } from './autopilot/survival'
 
 const ACCENT   = '#39d98a'
 const ACCENT_AUTO = '#22d3ee'
@@ -69,6 +70,23 @@ export function render(ctx: CanvasRenderingContext2D, state: GameState): void {
     ctx.fill()
   })
   ctx.shadowBlur = 0
+
+  // Autopilot path preview (ghost dots)
+  if (state.autopilot) {
+    const path = getAutopilotPath()
+    if (path.length > 1) {
+      ctx.fillStyle = 'rgba(34, 211, 238, 0.18)'
+      let px = state.snake[0].x
+      let py = state.snake[0].y
+      for (const step of path.slice(1)) {
+        px += step.x
+        py += step.y
+        ctx.beginPath()
+        ctx.arc(px * GRID + GRID / 2, py * GRID + GRID / 2, 3, 0, Math.PI * 2)
+        ctx.fill()
+      }
+    }
+  }
 
   // Paused overlay
   if (state.paused) {
