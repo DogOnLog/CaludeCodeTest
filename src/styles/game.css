@@ -424,6 +424,80 @@ canvas { display: block; }
 
 .lb-open-btn:hover { border-color: var(--accent); color: var(--accent); }
 
+/* ── Keyboard shortcuts panel ── */
+.shortcuts-panel {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 13, 20, .75);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 20;
+}
+
+.shortcuts-box {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 28px 32px;
+  min-width: 300px;
+  box-shadow: 0 0 40px rgba(0,0,0,.6);
+}
+
+.shortcuts-heading {
+  font-family: 'Orbitron', sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.shortcuts-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+}
+
+.shortcut-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.shortcut-row dt {
+  display: flex;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.shortcut-row dd {
+  margin: 0;
+  font-size: .8rem;
+  color: var(--muted);
+  text-align: right;
+}
+
+.shortcuts-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 1rem;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color .2s, background .2s;
+}
+
+.shortcuts-close:hover { color: var(--text); background: var(--border); }
+
 /* ── Utility ── */
 .hidden { display: none !important; }
 

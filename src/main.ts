@@ -14,14 +14,17 @@ import { getHudEls, updateScore, updateHighScore, setAutopilot, setRecordGlow } 
 import { submitScore, fetchTop } from './lib/leaderboard'
 
 // ── DOM ───────────────────────────────────────────────────────────────────────
-const canvas      = document.getElementById('canvas') as HTMLCanvasElement
-const ctx         = canvas.getContext('2d')!
-const gameWrapper = document.getElementById('game-wrapper') as HTMLElement
-const milestoneEl = document.getElementById('milestone') as HTMLElement
-const audioBtn    = document.getElementById('audio-btn') as HTMLButtonElement | null
-const crtBtn      = document.getElementById('crt-btn')   as HTMLButtonElement | null
-const overlay     = getOverlayEls()
-const hud         = getHudEls()
+const canvas          = document.getElementById('canvas') as HTMLCanvasElement
+const ctx             = canvas.getContext('2d')!
+const gameWrapper     = document.getElementById('game-wrapper') as HTMLElement
+const milestoneEl     = document.getElementById('milestone') as HTMLElement
+const audioBtn        = document.getElementById('audio-btn')       as HTMLButtonElement | null
+const crtBtn          = document.getElementById('crt-btn')         as HTMLButtonElement | null
+const shortcutsPanel  = document.getElementById('shortcuts-panel') as HTMLElement | null
+const shortcutsBtn    = document.getElementById('shortcuts-btn')   as HTMLButtonElement | null
+const shortcutsClose  = document.getElementById('shortcuts-close') as HTMLButtonElement | null
+const overlay         = getOverlayEls()
+const hud             = getHudEls()
 
 // ── State ─────────────────────────────────────────────────────────────────────
 let state: GameState = createInitialState()
@@ -103,6 +106,8 @@ document.addEventListener('keydown', (e) => {
     if (e.key.startsWith('Arrow')) e.preventDefault()
   }
   if ((e.key === 'p' || e.key === 'P') && state.running) state.paused = !state.paused
+  if (e.key === '?') openShortcuts()
+  if (e.key === 'Escape') closeShortcuts()
 })
 
 // Swipe
@@ -182,17 +187,31 @@ hud.autoBtn.addEventListener('click', () => {
   if (!state.running) return
   state.autopilot = !state.autopilot
   setAutopilot(hud.autoBtn, hud.aiBadge, state.autopilot)
+  hud.autoBtn.setAttribute('aria-pressed', String(state.autopilot))
 })
 
 audioBtn?.addEventListener('click', () => {
   const enabled = !isAudioEnabled()
   setAudioEnabled(enabled)
   audioBtn.classList.toggle('active', enabled)
+  audioBtn.setAttribute('aria-pressed', String(enabled))
 })
 
 crtBtn?.addEventListener('click', () => {
   gameWrapper.classList.toggle('crt')
-  crtBtn.classList.toggle('active', gameWrapper.classList.contains('crt'))
+  const on = gameWrapper.classList.contains('crt')
+  crtBtn.classList.toggle('active', on)
+  crtBtn?.setAttribute('aria-pressed', String(on))
+})
+
+// ── Shortcuts panel ────────────────────────────────────────────────────────────
+function openShortcuts(): void  { shortcutsPanel?.classList.remove('hidden') }
+function closeShortcuts(): void { shortcutsPanel?.classList.add('hidden') }
+
+shortcutsBtn?.addEventListener('click', openShortcuts)
+shortcutsClose?.addEventListener('click', closeShortcuts)
+shortcutsPanel?.addEventListener('click', (e) => {
+  if (e.target === shortcutsPanel) closeShortcuts()
 })
 
 document.addEventListener('visibilitychange', () => {

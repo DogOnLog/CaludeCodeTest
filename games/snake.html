@@ -4,13 +4,26 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Snake — Retro Games</title>
+  <meta name="description" content="Il classico gioco Snake con AI autopilota BFS, classifica online, effetti audio e CRT. Controlla il serpente e batti il record!">
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Snake — Retro Games">
+  <meta property="og:description" content="Il classico Snake con AI autopilota, classifica online e grafica retro. Gioca nel browser.">
+  <meta property="og:url"         content="https://dogonlog.github.io/CaludeCodeTest/games/snake.html">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Snake — Retro Games">
+  <meta name="twitter:description" content="Snake con AI autopilota BFS e classifica online.">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body class="game-page">
 
   <nav class="topnav">
-    <a href="../" class="back-link">
+    <a href="../" class="back-link" aria-label="Torna al portfolio">
       <span class="back-arrow">←</span>
       <span>Portfolio</span>
     </a>
@@ -27,7 +40,7 @@
         <div class="stats vertical">
           <div class="stat-card">
             <div class="stat-label">Punteggio</div>
-            <div class="stat-value" id="score">0</div>
+            <div class="stat-value" id="score" aria-live="polite" aria-atomic="true">0</div>
           </div>
           <div class="stat-card" id="high-score-card">
             <div class="stat-label">Record</div>
@@ -50,7 +63,7 @@
       </header>
 
       <div class="game-wrapper" id="game-wrapper">
-        <canvas id="canvas" width="500" height="500"></canvas>
+        <canvas id="canvas" width="500" height="500" role="img" aria-label="Campo da gioco Snake"></canvas>
         <div id="overlay">
           <div id="overlay-icon">🐍</div>
           <h2 id="overlay-title">Snake</h2>
@@ -58,7 +71,7 @@
 
           <!-- Leaderboard submit (game over with score > 0) -->
           <div id="name-section" class="name-section hidden">
-            <input id="player-name" class="name-input" type="text" maxlength="20" placeholder="Il tuo nome..." autocomplete="off" spellcheck="false">
+            <input id="player-name" class="name-input" type="text" maxlength="20" placeholder="Il tuo nome..." autocomplete="off" spellcheck="false" aria-label="Il tuo nome per la classifica">
             <button id="save-btn" class="save-btn">SALVA PUNTEGGIO</button>
           </div>
 
@@ -91,6 +104,7 @@
     <aside class="sidebar sidebar--right">
       <div class="sidebar-section">
         <div class="sidebar-title">CONTROLLI</div>
+        <button id="shortcuts-btn" class="lb-open-btn" aria-label="Mostra scorciatoie da tastiera" style="margin-bottom:10px;">⌨ Tasti rapidi <kbd class="kbd" style="font-size:.6rem;padding:1px 5px;">?</kbd></button>
         <div class="controls-list">
           <div class="control-row">
             <div class="control-keys">
@@ -120,21 +134,36 @@
         <div class="sidebar-title">OPZIONI</div>
         <div class="option-row">
           <span class="option-label">Autopilota</span>
-          <button id="auto-btn" class="toggle-btn" title="Attiva AI">
+          <button id="auto-btn" class="toggle-btn" title="Attiva AI" aria-label="Autopilota AI" aria-pressed="false">
             <span class="toggle-dot">🤖</span>
           </button>
         </div>
         <div class="option-row">
           <span class="option-label">Audio</span>
-          <button id="audio-btn" class="toggle-btn" title="Attiva audio"></button>
+          <button id="audio-btn" class="toggle-btn" title="Attiva audio" aria-label="Audio" aria-pressed="true"></button>
         </div>
         <div class="option-row">
           <span class="option-label">Effetto CRT</span>
-          <button id="crt-btn" class="toggle-btn" title="Attiva CRT"></button>
+          <button id="crt-btn" class="toggle-btn" title="Attiva CRT" aria-label="Effetto CRT" aria-pressed="false"></button>
         </div>
       </div>
     </aside>
 
+  </div>
+
+  <!-- Pannello scorciatoie da tastiera -->
+  <div id="shortcuts-panel" class="shortcuts-panel hidden" role="dialog" aria-modal="true" aria-labelledby="shortcuts-heading">
+    <div class="shortcuts-box">
+      <h2 id="shortcuts-heading" class="shortcuts-heading">TASTI RAPIDI</h2>
+      <dl class="shortcuts-list">
+        <div class="shortcut-row"><dt><span class="kbd">W</span><span class="kbd">A</span><span class="kbd">S</span><span class="kbd">D</span></dt><dd>Muovi il serpente</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">↑</span><span class="kbd">←</span><span class="kbd">↓</span><span class="kbd">→</span></dt><dd>Muovi il serpente</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">P</span></dt><dd>Pausa / Riprendi</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">?</span></dt><dd>Mostra questa finestra</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">Esc</span></dt><dd>Chiudi finestra</dd></div>
+      </dl>
+      <button id="shortcuts-close" class="shortcuts-close" aria-label="Chiudi pannello scorciatoie">✕</button>
+    </div>
   </div>
 
   <script type="module" src="/src/main.ts"></script>
