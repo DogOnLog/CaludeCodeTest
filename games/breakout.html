@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Breakout — Retro Games</title>
+  <meta name="description" content="Il classico Breakout arcade con autopilota AI e classifica online. Distruggi tutti i mattoni!">
+  <meta property="og:type"        content="website">
+  <meta property="og:title"       content="Breakout — Retro Games">
+  <meta property="og:description" content="Breakout arcade con autopilota AI e classifica online.">
+  <meta property="og:url"         content="https://dogonlog.github.io/CaludeCodeTest/games/breakout.html">
+  <meta name="twitter:card"        content="summary">
+  <meta name="twitter:title"       content="Breakout — Retro Games">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="game-page">
+
+  <nav class="topnav">
+    <a href="../" class="back-link" aria-label="Torna al portfolio">
+      <span class="back-arrow">←</span>
+      <span>Portfolio</span>
+    </a>
+    <span class="topnav-title">BREAKOUT</span>
+    <span class="topnav-spacer"></span>
+  </nav>
+
+  <div class="game-layout">
+
+    <!-- Left sidebar: stats + lives -->
+    <aside class="sidebar sidebar--left">
+      <div class="sidebar-section">
+        <div class="sidebar-title">STATS</div>
+        <div class="stats vertical">
+          <div class="stat-card">
+            <div class="stat-label">Punteggio</div>
+            <div class="stat-value" id="score" aria-live="polite" aria-atomic="true">0</div>
+          </div>
+          <div class="stat-card" id="high-score-card">
+            <div class="stat-label">Record</div>
+            <div class="stat-value" id="high-score">0</div>
+          </div>
+        </div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">VITE</div>
+        <div id="lives-val" style="font-size:1.1rem;letter-spacing:2px;text-align:center;padding:4px 0;">❤️❤️❤️</div>
+      </div>
+      <div class="sidebar-section">
+        <div class="sidebar-title">INFO</div>
+        <p class="sidebar-tip">Distruggi tutti i mattoni con la pallina. Le righe in alto valgono più punti.</p>
+        <p class="sidebar-tip" style="margin-top:8px;">L'autopilota centra la racchetta sulla traiettoria della palla.</p>
+      </div>
+    </aside>
+
+    <!-- Center: canvas -->
+    <main class="game-main">
+      <header class="game-header">
+        <div class="game-logo-icon">🏓</div>
+        <h1 class="game-title">BREAKOUT</h1>
+      </header>
+
+      <div class="game-wrapper" id="game-wrapper">
+        <canvas id="canvas" width="500" height="500" role="img" aria-label="Campo da gioco Breakout"></canvas>
+        <div id="overlay">
+          <div id="overlay-icon">🏓</div>
+          <h2 id="overlay-title">Breakout</h2>
+          <p id="overlay-msg">Distruggi tutti i mattoni. 3 vite a disposizione.</p>
+
+          <div id="name-section" class="name-section hidden">
+            <input id="player-name" class="name-input" type="text" maxlength="20" placeholder="Il tuo nome..." autocomplete="off" spellcheck="false" aria-label="Il tuo nome per la classifica">
+            <button id="save-btn" class="save-btn">SALVA PUNTEGGIO</button>
+          </div>
+
+          <div id="lb-section" class="lb-section hidden">
+            <div class="lb-title">🏆 TOP 10</div>
+            <ol id="lb-list" class="lb-list"></ol>
+          </div>
+
+          <button id="btn">INIZIA</button>
+        </div>
+        <div id="ai-badge" class="ai-badge">AI</div>
+        <div id="milestone" class="milestone"></div>
+      </div>
+
+      <!-- D-pad: mobile only -->
+      <div class="dpad">
+        <div class="dpad-row">
+          <div class="dpad-btn" id="d-left">◀</div>
+          <div class="dpad-btn" id="d-right">▶</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Right sidebar: controls + settings -->
+    <aside class="sidebar sidebar--right">
+      <div class="sidebar-section">
+        <div class="sidebar-title">CONTROLLI</div>
+        <button id="shortcuts-btn" class="lb-open-btn" aria-label="Mostra scorciatoie da tastiera" style="margin-bottom:10px;">⌨ Tasti rapidi <kbd class="kbd" style="font-size:.6rem;padding:1px 5px;">?</kbd></button>
+        <div class="controls-list">
+          <div class="control-row">
+            <div class="control-keys">
+              <span class="kbd">A</span><span class="kbd">D</span>
+            </div>
+            <span class="control-desc">Muovi</span>
+          </div>
+          <div class="control-row">
+            <div class="control-keys">
+              <span class="kbd">←</span><span class="kbd">→</span>
+            </div>
+            <span class="control-desc">Muovi</span>
+          </div>
+          <div class="control-row">
+            <span class="kbd">P</span>
+            <span class="control-desc">Pausa</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">CLASSIFICA</div>
+        <button id="lb-btn" class="lb-open-btn">🏆 Visualizza Top 10</button>
+      </div>
+
+      <div class="sidebar-section">
+        <div class="sidebar-title">OPZIONI</div>
+        <div class="option-row">
+          <span class="option-label">Autopilota</span>
+          <button id="auto-btn" class="toggle-btn" title="Attiva AI" aria-label="Autopilota AI" aria-pressed="false">
+            <span class="toggle-dot">🤖</span>
+          </button>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Audio</span>
+          <button id="audio-btn" class="toggle-btn" title="Attiva audio" aria-label="Audio" aria-pressed="true"></button>
+        </div>
+        <div class="option-row">
+          <span class="option-label">Effetto CRT</span>
+          <button id="crt-btn" class="toggle-btn" title="Attiva CRT" aria-label="Effetto CRT" aria-pressed="false"></button>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+
+  <!-- Pannello scorciatoie -->
+  <div id="shortcuts-panel" class="shortcuts-panel hidden" role="dialog" aria-modal="true" aria-labelledby="shortcuts-heading">
+    <div class="shortcuts-box">
+      <h2 id="shortcuts-heading" class="shortcuts-heading">TASTI RAPIDI</h2>
+      <dl class="shortcuts-list">
+        <div class="shortcut-row"><dt><span class="kbd">A</span><span class="kbd">D</span></dt><dd>Muovi racchetta</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">←</span><span class="kbd">→</span></dt><dd>Muovi racchetta</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">P</span></dt><dd>Pausa / Riprendi</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">?</span></dt><dd>Mostra questa finestra</dd></div>
+        <div class="shortcut-row"><dt><span class="kbd">Esc</span></dt><dd>Chiudi finestra</dd></div>
+      </dl>
+      <button id="shortcuts-close" class="shortcuts-close" aria-label="Chiudi pannello scorciatoie">✕</button>
+    </div>
+  </div>
+
+  <script type="module" src="/src/breakout.ts"></script>
+</body>
+</html>

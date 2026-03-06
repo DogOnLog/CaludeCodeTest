@@ -8,8 +8,10 @@ export default defineConfig({
     target: 'es2020',
     rollupOptions: {
       input: {
-        main:  resolve(__dirname, 'index.html'),
-        snake: resolve(__dirname, 'games/snake.html'),
+        main:        resolve(__dirname, 'index.html'),
+        snake:       resolve(__dirname, 'games/snake.html'),
+        breakout:    resolve(__dirname, 'games/breakout.html'),
+        leaderboard: resolve(__dirname, 'games/leaderboard.html'),
       },
     },
   },

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classifica — Retro Games</title>
+  <meta name="description" content="Classifica globale di Retro Games: i migliori punteggi di Snake e Breakout.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script type="module" src="/src/leaderboard-page.ts"></script>
+</head>
+<body class="portfolio-body">
+
+  <div class="portfolio-container">
+
+    <header class="lb-page-header">
+      <h1 class="lb-page-title">🏆 CLASSIFICA</h1>
+      <a href="../" class="back-link" aria-label="Torna al portfolio">
+        <span class="back-arrow">←</span>
+        <span>Portfolio</span>
+      </a>
+    </header>
+
+    <div class="lb-page-grid">
+
+      <section class="lb-page-section">
+        <h2 class="lb-page-section-title"><span>🐍</span> SNAKE — TOP 10</h2>
+        <ol id="snake-list" class="lb-page-list">
+          <li class="lb-page-loading">Caricamento...</li>
+        </ol>
+      </section>
+
+      <section class="lb-page-section">
+        <h2 class="lb-page-section-title"><span>🏓</span> BREAKOUT — TOP 10</h2>
+        <ol id="breakout-list" class="lb-page-list">
+          <li class="lb-page-loading">Caricamento...</li>
+        </ol>
+      </section>
+
+    </div>
+
+    <footer class="portfolio-footer">
+      <span>Fatto con TypeScript + Vite</span>
+      <span class="footer-sep">·</span>
+      <a href="https://github.com/DogOnLog/CaludeCodeTest" target="_blank" rel="noopener noreferrer">Codice sorgente</a>
+    </footer>
+
+  </div>
+
+</body>
+</html>

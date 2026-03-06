@@ -96,10 +96,38 @@
   cursor: pointer;
 }
 
+.game-card:not(.game-card--locked) { overflow: hidden; }
+
+.game-card:not(.game-card--locked)::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(57, 217, 138, 0.07) 50%,
+    transparent 70%
+  );
+  background-size: 200% 100%;
+  background-position: 200% 0;
+  transition: background-position 0s;
+  pointer-events: none;
+  z-index: 1;
+}
+
 .game-card:not(.game-card--locked):hover {
   border-color: var(--accent);
   box-shadow: 0 0 24px var(--glow);
   transform: translateY(-2px);
+}
+
+.game-card:not(.game-card--locked):hover::before {
+  animation: card-shimmer .9s ease forwards;
+}
+
+@keyframes card-shimmer {
+  0%   { background-position:  200% 0; }
+  100% { background-position: -200% 0; }
 }
 
 .game-card--locked { cursor: default; opacity: .6; }

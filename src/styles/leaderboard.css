@@ -1,0 +1,79 @@
+/* ── Leaderboard page ── */
+.lb-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--border);
+}
+
+.lb-page-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 1.4rem;
+  font-weight: 900;
+  letter-spacing: 5px;
+  color: var(--accent);
+  text-shadow: 0 0 20px var(--glow);
+}
+
+.lb-page-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.lb-page-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+
+.lb-page-section-title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--muted);
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.lb-page-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.lb-page-row {
+  display: grid;
+  grid-template-columns: 28px 1fr auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  transition: border-color .15s;
+}
+
+.lb-page-row:hover       { border-color: var(--accent); }
+.lb-page-row.gold        { border-color: var(--amber); }
+.lb-page-row.silver      { border-color: #94a3b8; }
+.lb-page-row.bronze      { border-color: #b45309; }
+
+.lb-page-rank   { color: var(--muted); font-size: .75rem; font-weight: 700; text-align: center; }
+.lb-page-player { color: var(--text);  font-size: .85rem; }
+.lb-page-score  { color: var(--accent); font-family: 'Orbitron', sans-serif; font-size: .85rem; font-weight: 700; }
+
+.lb-page-loading,
+.lb-page-empty  { color: var(--muted); font-size: .82rem; text-align: center; padding: 20px 0; list-style: none; }
+
+@media (max-width: 600px) {
+  .lb-page-grid { grid-template-columns: 1fr; }
+}
