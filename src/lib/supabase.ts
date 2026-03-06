@@ -7,4 +7,4 @@ if (!url || !key) {
   console.warn("Supabase env vars missing — leaderboard disabled.");
 }
 
-export const supabase = createClient(url ?? "https://placeholder.supabase.co", key ?? "placeholder");
+export const supabase = createClient(url || "https://placeholder.supabase.co", key || "placeholder");
