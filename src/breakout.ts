@@ -35,6 +35,7 @@ document.addEventListener('keyup',   e => held.delete(e.code))
 // ── rAF loop ─────────────────────────────────────────────────────────────────
 let rafId: number | null = null
 let lastTime = 0
+let loopActive = false
 
 function startLoop(
   state:      BreakoutState,
@@ -42,21 +43,29 @@ function startLoop(
   onScore:    (s: number, hs: number) => void,
   onWin:      () => void,
 ): void {
-  stopLoop()
-  lastTime = 0
+  loopActive = false
+  if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null }
+  lastTime   = 0
+  loopActive = true
+  let acc    = 0
   rafId = requestAnimationFrame(function tick(now) {
+    if (!loopActive) return
     if (!lastTime) lastTime = now
-    const dt    = now - lastTime
-    lastTime    = now
-    const steps = Math.min(Math.floor(dt / 16), 4)
-    for (let i = 0; i < steps; i++)
+    const dt = Math.min(now - lastTime, 100) // cap to avoid spiral of death
+    lastTime = now
+    acc += dt
+    while (acc >= 16) {
       updateBreakout(state, held, onGameOver, onScore, onWin)
+      acc -= 16
+      if (!loopActive) { renderBreakout(ctx, state); return } // stopped mid-tick
+    }
     renderBreakout(ctx, state)
     rafId = requestAnimationFrame(tick)
   })
 }
 
 function stopLoop(): void {
+  loopActive = false
   if (rafId !== null) { cancelAnimationFrame(rafId); rafId = null }
 }
 
