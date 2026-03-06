@@ -1,6 +1,6 @@
 import { supabase } from './supabase'
 
-export type GameTable = 'leaderboard' | 'leaderboard_breakout'
+export type GameTable = 'leaderboard' | 'leaderboard_breakout' | 'leaderboard_tetris'
 
 export interface LeaderboardEntry {
   player: string

@@ -11,6 +11,7 @@ export default defineConfig({
         main:        resolve(__dirname, 'index.html'),
         snake:       resolve(__dirname, 'games/snake.html'),
         breakout:    resolve(__dirname, 'games/breakout.html'),
+        tetris:      resolve(__dirname, 'games/tetris.html'),
         leaderboard: resolve(__dirname, 'games/leaderboard.html'),
       },
     },

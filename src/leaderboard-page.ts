@@ -32,3 +32,4 @@ function escapeHtml(s: string): string {
 
 renderTable('snake-list',   'leaderboard')
 renderTable('breakout-list','leaderboard_breakout')
+renderTable('tetris-list',  'leaderboard_tetris')
